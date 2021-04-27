@@ -1,0 +1,15 @@
+1. Ders 
+
+- Time ve Space Complexity nedir
+- O(1), O(logN), O(N), O(N`2) ve s.
+- in Place 
+- Abstract Data Type vs Data Structure
+- Array ADT ve DS
+- List ADT ve ArrayList DS
+
+
+
+
+
+
+
