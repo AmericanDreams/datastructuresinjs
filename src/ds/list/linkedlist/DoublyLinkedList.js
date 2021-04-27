@@ -1,7 +1,7 @@
 import * as Util from "../../../util/Util";
 import Node from "./DNode";
 
-export default class SingleLinkedList {
+export default class DoublyLinkedList {
   constructor() {
     this.root = null;
     this.tail = null;
