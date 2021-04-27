@@ -1,11 +1,129 @@
+Project in github
+https://github.com/AmericanDreams/datastructuresinjs
+
 1. Ders 
 
 - Time ve Space Complexity nedir
 - O(1), O(logN), O(N), O(N`2) ve s.
 - in Place 
 - Abstract Data Type vs Data Structure
-- Array ADT ve DS
-- List ADT ve ArrayList DS
+
+
+2. Ders
+
+--- Static Array ---
+PROS
+- Çox sürətli işləyir və bir çox proqramlama dillərində built in data structure olaraq hazır gəlir.
+
+CONS
+- Arrayi yaradarkən ölçüsünü bilmək məcburiyyətindəyik. Vəs onradan artıra bilmərik.
+
+
+Əməliyyatlar
+add(item) - O(1)
+getByIndex(index) -> O(1)
+
+========================
+
+--- List ---
+---- ArrayList ve ya Dynamic Array ---
+PROS
+- Array-dən fərli olaraq başlanğıcda ölçünü bilmək mücburiyyətində deyilik və ölçüsü dinamik olaraq artır
+
+CONS
+- Xüsusi ilə silmə əməliyyatı çox ləng işləyir. Buna görə də əgər alqpritm bizdən listin içərisindən tez-tez
+məlumat ların silməyə məcbur edirsə ArrayList ən yaxşı seçim olmaya bilər (Bax LinkedList).
+
+- Amma silməkdən daha çox listin içindəki dəyərləri oxumaq əməliyyatı edəcəyiksə ArrayList dən istifadə yaxçı fikirdir.
+
+Əməliyyatlar
+addToEnd(item) - Amortized O(1)
+getByIndex(index) -> O(1)
+addToHead() => O(N)
+removeFromHead() -> O(N)
+removeFromEnd() -> O(1)
+removeByIndex() -> O(N) in the worst case
+
+https://en.wikipedia.org/wiki/Dynamic_array
+
+===========================
+
+--- LinkedList ---
+--- Single LinkedList ---
+
+PROS
+- Xüsusi ilə ilk item-i silmə əməliyyatı çox sürətli işləyir.
+
+CONS
+- Əgər list in içərisindən tez-tez index ləri ilə məlumatları oxuyacaqıqsa LinkedList bu məsəslədə çox zəifdir. Çünki
+Hər dəfə hesablıyaraq axtarılan index-dəki item-i tapmaqa çalışmalıdıdr.
+
+- ArrayList ilə müqayisə də çox yaddaş tutur çünki burada hər node özündən sonrakı nodun referensini 
+özündən saxlamalıdıdr.
+
+Əməliyyatlar
+add(item) - O(N)
+getByIndex(index) -> O(N)
+addToHead() => O(1)
+removeFromHead() -> O(1)
+removeFromEnd() -> O(N)
+removeByIndex() -> O(N) in the worst case
+
+https://en.wikipedia.org/wiki/Linked_list
+
+3. Ders
+
+--- Double Linked List ---
+PROS
+- Xüsusi ilə silmə əməliyyatları çox sürətli həyata keçir. Buna görə də əgər algorithm bizdən tez-tez listin içərisindən
+silmə tələb edirsə seçiləcək ən yaxşı yoxllardan biri linkedlistdir.
+
+CONS
+- İndexi ilə item i tapmaq ləng işləyir. Ən yaxşı implementasiya ilə bu zamanı O(N/2) salmaq mümkündür.
+- ArrayList ilə müqayisədə çox böyük yaddaş zəbt edir çenki burada hər nodə həm pzündən sonrakı həm də 
+əvvəlki nodeun referebsini özündə saxlayır.
+
+Əməliyyatlar
+add(item) - O(1)
+getByIndex(index) -> O(N/2)
+addToHead() => O(1)
+removeFromHead() -> O(1)
+removeFromEnd() -> O(1)
+removeByIndex() -> O(N/2) in the worst case
+
+--- ArrayList vs LinkedList ---
+- Bir çox algorithm lərdə bu iki DS dən birini seçməli oluruq. Diqqət etməli olduqum şey algərithm in bizdən
+nə tələb etdiyi olmalıdıdr. Əgər listin içərisinən çoxlu sayda silmə əməliyyatı edəcəyiksə LinkedList daya yaxşı alternativdir.
+Yox əgər bir o qədər də silmə əməliyyatına ehtiyacımız yoxdur və daha çox listin içərisindəki dəyərləri onların index
+ləri ilə sorğulayacaqıqsa ArrayList ən yaxşı alternativ ola bilər.
+
+
+--- Stack ---
+
+Stack ADT elementleri LIFO strategiyasi ile ozunde saxlayan linear data tipdir.
+
+PROS
+- Alqorithmlərin həllində olduqca cox işə yarayır. Ümmumiyyətlə Stack çox məşhur bir ADT dir. Məsələn Stack memory
+arxa tərəfdə Stack ADT ilə implement olunmuşdur. 
+- LIFO Strategiya ilə işləyir. Yəni ki , hansı item axırıncı daxil olarsa həmin item ilk silinən olacaq.
+
+CONS
+- Yalnız LİFO strategiya ilə işlədiyinə görə həmişə ən yaxşı seçim olmaya bilər
+
+Əməliyyatlar
+push(item) -> Stackin əvvəlinə yeni item əlavə edir
+peek() -> İlk itemi geri qaytarır
+pop(item) -> İlk item i geri qaytarır və onu stack dən silir
+
+https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+
+
+Stack implementasiyası ArrayList ilə
+push(item) -> Amortized O(1)
+peek() -> O(1)
+pop(item) -> O(1)
+
+
 
 
 

@@ -47,6 +47,7 @@ export default class ArrayList {
     this.internalArray[index] = undefined;
     this.moveAlltoLeft(index + 1);
     this.pointer--;
+    return temp;
   }
 
   // O(N)

@@ -206,6 +206,7 @@ var ArrayList = /*#__PURE__*/function () {
       this.internalArray[index] = undefined;
       this.moveAlltoLeft(index + 1);
       this.pointer--;
+      return temp;
     } // O(N)
 
   }, {
@@ -513,45 +514,323 @@ var SingleLinkedList = /*#__PURE__*/function () {
 }();
 
 exports.default = SingleLinkedList;
-},{"../../../util/Util":"src/util/Util.js","./SNode":"src/ds/list/linkedlist/SNode.js"}],"src/index.js":[function(require,module,exports) {
+},{"../../../util/Util":"src/util/Util.js","./SNode":"src/ds/list/linkedlist/SNode.js"}],"src/ds/list/linkedlist/DNode.js":[function(require,module,exports) {
 "use strict";
 
-var _ArrayList = _interopRequireDefault(require("./ds/list/ArrayList"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-var _SingleLinkedList = _interopRequireDefault(require("./ds/list/linkedlist/SingleLinkedList"));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Util = _interopRequireWildcard(require("./util/Util"));
+var DNode = function DNode(data) {
+  _classCallCheck(this, DNode);
+
+  this.data = data;
+  this.next = null;
+  this.prev = null;
+};
+
+exports.default = DNode;
+},{}],"src/ds/list/linkedlist/DoublyLinkedList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var Util = _interopRequireWildcard(require("../../../util/Util"));
+
+var _DNode = _interopRequireDefault(require("./DNode"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SingleLinkedList = /*#__PURE__*/function () {
+  function SingleLinkedList() {
+    _classCallCheck(this, SingleLinkedList);
+
+    this.root = null;
+    this.tail = null;
+    this.counter = 0;
+  } // O(1)
+
+
+  _createClass(SingleLinkedList, [{
+    key: "add",
+    value: function add(item) {
+      var node = new _DNode.default(item);
+
+      if (this.isEmpty()) {
+        this.root = node;
+        this.tail = node;
+      } else {
+        node.prev = this.tail;
+        this.tail.next = node;
+        this.tail = node;
+      }
+
+      this.counter++;
+    } // O(N/2)
+
+  }, {
+    key: "get",
+    value: function get(index) {
+      var node = this.getNode(index);
+      return node === undefined ? undefined : node.data;
+    } // O(N/2)
+
+  }, {
+    key: "set",
+    value: function set(index, newItem) {
+      var node = this.getNode(index);
+
+      if (node === undefined) {
+        return undefined;
+      }
+
+      node.data = newItem;
+      return node.data;
+    } // O(N/2)
+
+  }, {
+    key: "remove",
+    value: function remove(index) {
+      var node = this.getNode(index);
+
+      if (node === undefined) {
+        return undefined;
+      }
+
+      if (this.size() === 1) {
+        // The node we wanna remove is the only node in the linkedlist
+        this.root = null;
+        this.tail = null;
+        this.counter--;
+        return node.data;
+      }
+
+      if (node.prev === null) {
+        // So this is the root node
+        node.next.prev = null;
+        this.root = node.next;
+      }
+
+      if (node.next === null) {
+        // So this is the tail node
+        node.prev.next = null;
+        this.tail = node.prev;
+      }
+
+      if (node.next !== null && node.prev !== null) {
+        // So node is placed in the middle
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+      }
+
+      this.counter--;
+      return node.data;
+    } // O(1)
+
+  }, {
+    key: "addToHead",
+    value: function addToHead(item) {
+      var node = new _DNode.default(item);
+
+      if (this.isEmpty()) {
+        this.root = node;
+        this.tail = node;
+      } else {
+        node.next = this.root;
+        this.root.prev = node;
+        this.root = node;
+      }
+
+      this.counter++;
+    }
+  }, {
+    key: "size",
+    value: function size() {
+      return this.counter;
+    }
+  }, {
+    key: "isEmpty",
+    value: function isEmpty() {
+      return this.root == null;
+    }
+  }, {
+    key: "isValidIndex",
+    value: function isValidIndex(index) {
+      return index >= 0 && index < this.size();
+    } // O(N/2)
+
+  }, {
+    key: "getNode",
+    value: function getNode(index) {
+      if (!this.isValidIndex(index)) {
+        return undefined;
+      }
+
+      if (index > this.size() / 2) {
+        var node = this.tail;
+        var startIndex = this.size() - 1;
+
+        while (startIndex !== index) {
+          node = node.prev;
+          startIndex--;
+        }
+
+        return node;
+      } else {
+        var _node = this.root;
+        var _startIndex = 0;
+
+        while (_startIndex !== index) {
+          _node = _node.next;
+          _startIndex++;
+        }
+
+        return _node;
+      }
+    }
+  }, {
+    key: "print",
+    value: function print() {
+      Util.print("Printing the DoublyLinkedList");
+      var node = this.root;
+
+      while (node != null) {
+        Util.print(node.data);
+        node = node.next;
+      }
+    }
+  }]);
+
+  return SingleLinkedList;
+}();
+
+exports.default = SingleLinkedList;
+},{"../../../util/Util":"src/util/Util.js","./DNode":"src/ds/list/linkedlist/DNode.js"}],"src/ds/stack/implwitharraylist/Stack.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var Util = _interopRequireWildcard(require("../../../util/Util"));
+
+var _ArrayList = _interopRequireDefault(require("../../list/ArrayList"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var arrayList = new _SingleLinkedList.default();
-arrayList.add(1);
-arrayList.add(2);
-arrayList.add(3);
-arrayList.add(4);
-arrayList.add(5);
-arrayList.print();
-arrayList.remove(0);
-arrayList.add(1);
-arrayList.print();
-arrayList.set(4, 6);
-arrayList.print();
-Util.print("[0] = " + arrayList.get(0));
-arrayList.addToHead(1);
-arrayList.print();
-Util.print("[0] = " + arrayList.get(0));
-arrayList.add(7);
-arrayList.add(8);
-arrayList.add(9);
-arrayList.add(10);
-arrayList.add(11);
-arrayList.print();
-Util.print("size = " + arrayList.size());
-},{"./ds/list/ArrayList":"src/ds/list/ArrayList.js","./ds/list/linkedlist/SingleLinkedList":"src/ds/list/linkedlist/SingleLinkedList.js","./util/Util":"src/util/Util.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Stack = /*#__PURE__*/function () {
+  function Stack() {
+    _classCallCheck(this, Stack);
+
+    this.arrayList = new _ArrayList.default();
+  } // Amortized O(1)
+
+
+  _createClass(Stack, [{
+    key: "push",
+    value: function push(item) {
+      this.arrayList.add(item);
+      return this.arrayList.get(this.arrayList.size() - 1);
+    } // O(1)
+
+  }, {
+    key: "peek",
+    value: function peek() {
+      if (this.isEmpty()) {
+        return undefined;
+      }
+
+      return this.arrayList.get(this.arrayList.size() - 1);
+    } // O(1)
+
+  }, {
+    key: "pop",
+    value: function pop() {
+      if (this.isEmpty()) {
+        return undefined;
+      } // O(1) Because it alwys removes the last element in the arrayList so after removing any
+      // shifting operation will not needed
+
+
+      return this.arrayList.remove(this.arrayList.size() - 1);
+    }
+  }, {
+    key: "isEmpty",
+    value: function isEmpty() {
+      return this.arrayList.isEmpty();
+    }
+  }, {
+    key: "size",
+    value: function size() {
+      return this.arrayList.size();
+    }
+  }, {
+    key: "print",
+    value: function print() {
+      Util.print("Printing the Stack");
+
+      for (var i = this.arrayList.size() - 1; i >= 0; i--) {
+        if (i === this.arrayList.size() - 1) {
+          Util.print(this.arrayList.get(i) + " <= HEAD");
+        } else if (i === 0) {
+          Util.print(this.arrayList.get(i) + " <= BOTTOM");
+        } else {
+          Util.print(this.arrayList.get(i));
+        }
+      }
+    }
+  }]);
+
+  return Stack;
+}();
+
+exports.default = Stack;
+},{"../../../util/Util":"src/util/Util.js","../../list/ArrayList":"src/ds/list/ArrayList.js"}],"src/index.js":[function(require,module,exports) {
+"use strict";
+
+var Util = _interopRequireWildcard(require("./util/Util"));
+
+var _ArrayList = _interopRequireDefault(require("./ds/list/ArrayList"));
+
+var _SingleLinkedList = _interopRequireDefault(require("./ds/list/linkedlist/SingleLinkedList"));
+
+var _DoublyLinkedList = _interopRequireDefault(require("./ds/list/linkedlist/DoublyLinkedList"));
+
+var _Stack = _interopRequireDefault(require("./ds/stack/implwitharraylist/Stack"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./util/Util":"src/util/Util.js","./ds/list/ArrayList":"src/ds/list/ArrayList.js","./ds/list/linkedlist/SingleLinkedList":"src/ds/list/linkedlist/SingleLinkedList.js","./ds/list/linkedlist/DoublyLinkedList":"src/ds/list/linkedlist/DoublyLinkedList.js","./ds/stack/implwitharraylist/Stack":"src/ds/stack/implwitharraylist/Stack.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -579,7 +858,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53038" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65442" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
