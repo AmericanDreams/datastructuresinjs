@@ -123,8 +123,36 @@ push(item) -> Amortized O(1)
 peek() -> O(1)
 pop(item) -> O(1)
 
+Stack implementasiyası LinkedList ilə
+push(item) -> O(1)
+peek() -> O(1)
+pop(item) -> O(1)
 
 
+--- Queue ---
+
+Queue (Növbə) ADT elementleri özündə FİFO strategiyası ilə saxlayan linear data tipdir.
+
+PROS
+- FİFO strategiysl ilə işləyir. Yıni ilk hansı element daxil edilibsə ilk silinən də o olacaq.
+- Məşhur ADT dir. Məsələn Prosessorlar onları gələn taskları arxa tərəfdə Queue ADT ilə sıralayırlar. Hansı task
+ilk daxil edlibsə deməli o birinci həll olunmalıdır.
+
+CONS
+- Yalnız FİFO strategiya ilə işlədiyinə görə həmişə ən yaxşı seçim olmaya bilər
+
+Əməliyyatlar
+enQueue(item) -> Queue-nin sonuna yeni element daxil edir
+deQueue() -> Queue nin əvvəlindəki elementi silir
+peek() -> Queue nin əvvəlindəki elementi geri qaytarır amma SİLMİR
+
+
+https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
+
+Queue implementasıyası SingleLinkedList ilə
+enQueue(item) -> O(1)
+deQueue() -> O(1)
+peek() -> O(1)
 
 
 

@@ -1,9 +1,7 @@
 import * as Util from "./util/Util";
 
-import ArrayList from "./ds/list/ArrayList";
-import SingleLinkedList from "./ds/list/linkedlist/SingleLinkedList";
-import DoublyLinkedList from "./ds/list/linkedlist/DoublyLinkedList";
-import Stack from "./ds/stack/implwitharraylist/Stack";
+import Stack from "./ds/stack/implwithlinkedlist/Stack";
+import Queue from "./ds/queue/implwithsinglelinkedlist/Queue";
 
 // const stack = new Stack();
 // stack.push(1);
@@ -25,38 +23,28 @@ import Stack from "./ds/stack/implwitharraylist/Stack";
 
 // stack.print();
 
-// const arrayList = new DoublyLinkedList();
-// arrayList.add(1);
-// arrayList.add(2);
-// arrayList.add(3);
-// arrayList.add(4);
-// arrayList.add(5);
+const queue = new Queue();
+queue.enQueue(1);
+queue.enQueue(2);
+queue.enQueue(3);
+queue.enQueue(4);
 
-// arrayList.print();
+queue.print();
 
-// arrayList.remove(0);
-// arrayList.add(1);
+Util.print("peek() => " + queue.peek());
+Util.print("size = " + queue.size());
 
-// arrayList.print();
+Util.print("deQueue() => " + queue.deQueue());
+Util.print("deQueue() => " + queue.deQueue());
 
-// arrayList.set(4, 6);
+queue.print();
 
-// arrayList.print();
+Util.print("enQueue(5)");
+queue.enQueue(5);
 
-// Util.print("[0] = " + arrayList.get(0));
+queue.print();
 
-// arrayList.addToHead(1);
+Util.print("enQueue(6)");
+queue.enQueue(6);
 
-// arrayList.print();
-
-// Util.print("[0] = " + arrayList.get(0));
-
-// arrayList.add(7);
-// arrayList.add(8);
-// arrayList.add(9);
-// arrayList.add(10);
-// arrayList.add(11);
-
-// arrayList.print();
-
-// Util.print("size = " + arrayList.size());
+queue.print();

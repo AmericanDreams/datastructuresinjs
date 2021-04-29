@@ -132,200 +132,7 @@ var print = function print(text) {
 };
 
 exports.print = print;
-},{}],"src/ds/list/ArrayList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var Util = _interopRequireWildcard(require("../../util/Util"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var ArrayList = /*#__PURE__*/function () {
-  function ArrayList() {
-    _classCallCheck(this, ArrayList);
-
-    this.INTERNAL_CAPASITY = 10;
-    this.internalArray = [
-      /*this.INTERNAL_CAPASITY */
-    ];
-    this.pointer = 0;
-  } // Amortized O(1)
-
-
-  _createClass(ArrayList, [{
-    key: "add",
-    value: function add(item) {
-      if (this.isInternalArrayFull() || this.isEmpty()) {
-        this.resize();
-      }
-
-      this.internalArray[this.pointer++] = item;
-    } // O(1)
-
-  }, {
-    key: "get",
-    value: function get(index) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      return this.internalArray[index];
-    } // O(1)
-
-  }, {
-    key: "set",
-    value: function set(index, newItem) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      this.internalArray[index] = newItem;
-      return this.internalArray[index];
-    } // O(N) in the worst case
-
-  }, {
-    key: "remove",
-    value: function remove(index) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      var temp = this.internalArray[index];
-      this.internalArray[index] = undefined;
-      this.moveAlltoLeft(index + 1);
-      this.pointer--;
-      return temp;
-    } // O(N)
-
-  }, {
-    key: "addToHead",
-    value: function addToHead(item) {
-      if (this.isInternalArrayFull() || this.isEmpty()) {
-        this.resize();
-      }
-
-      this.moveAlltoRight(0);
-      this.pointer++;
-      this.internalArray[0] = item;
-    } // O(1)
-
-  }, {
-    key: "size",
-    value: function size() {
-      return this.pointer;
-    } // O(1)
-
-  }, {
-    key: "isEmpty",
-    value: function isEmpty() {
-      return this.pointer === 0;
-    } // O(N)
-
-  }, {
-    key: "resize",
-    value: function resize() {
-      if (this.isInternalArrayFull()) {
-        // Internal array is full. Need to make bigger
-
-        /**
-         * Creating new Internal array with 1.5 times bigger size and copying all
-         * elements from last internal array into new one
-         */
-        this.INTERNAL_CAPASITY *= 1.5;
-        var newInternalArray = [
-          /*this.INTERNAL_CAPASITY */
-        ];
-
-        for (var i = 0; i < this.internalArray.length; i++) {
-          newInternalArray[i] = this.internalArray[i];
-        } // Replacing old internal array with new (bigger) one
-
-
-        this.internalArray = newInternalArray;
-      } else if (this.isEmpty() && this.INTERNAL_CAPASITY > 10) {
-        // Internal array is full. Need make smaller
-
-        /**
-         * Creating new array with 10 size and replacing internal array with new (smaller) array
-         */
-        this.INTERNAL_CAPASITY = 10;
-        var _newInternalArray = [
-          /*this.INTERNAL_CAPASITY */
-        ];
-        this.internalArray = _newInternalArray;
-      }
-    }
-  }, {
-    key: "isInternalArrayFull",
-    value: function isInternalArrayFull() {
-      return this.pointer === this.INTERNAL_CAPASITY;
-    }
-  }, {
-    key: "isValidIndex",
-    value: function isValidIndex(index) {
-      return index >= 0 && index < this.size();
-    }
-    /*
-     * This method will take all the items in the right of the given index (given index inclusive)
-     * and move them 1 step right
-     */
-
-  }, {
-    key: "moveAlltoRight",
-    value: function moveAlltoRight(index) {
-      if (!this.isValidIndex(index)) return;
-
-      for (var i = this.size() - 1; i >= index; i--) {
-        this.internalArray[i + 1] = this.internalArray[i];
-      }
-
-      this.internalArray[index] = undefined;
-    }
-    /*
-     * Thii method will take all the items in the left of the given index (given index inclusive)
-     * and move them 1 step left. Note first index will dissappear
-     */
-
-  }, {
-    key: "moveAlltoLeft",
-    value: function moveAlltoLeft(index) {
-      if (!this.isValidIndex(index)) return;
-
-      for (var i = index; i < this.size(); i++) {
-        if (i === 0) continue;
-        this.internalArray[i - 1] = this.internalArray[i];
-      }
-
-      this.internalArray.pop();
-    }
-  }, {
-    key: "print",
-    value: function print() {
-      Util.print("Printing the ArrayList");
-
-      for (var i = 0; i < this.internalArray.length; i++) {
-        Util.print(this.internalArray[i]);
-      }
-    }
-  }]);
-
-  return ArrayList;
-}();
-
-exports.default = ArrayList;
-},{"../../util/Util":"src/util/Util.js"}],"src/ds/list/linkedlist/SNode.js":[function(require,module,exports) {
+},{}],"src/ds/stack/implwithlinkedlist/Node.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -335,15 +142,15 @@ exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SNode = function SNode(data) {
-  _classCallCheck(this, SNode);
+var Node = function Node(data) {
+  _classCallCheck(this, Node);
 
   this.data = data;
   this.next = null;
 };
 
-exports.default = SNode;
-},{}],"src/ds/list/linkedlist/SingleLinkedList.js":[function(require,module,exports) {
+exports.default = Node;
+},{}],"src/ds/stack/implwithlinkedlist/Stack.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -353,385 +160,7 @@ exports.default = void 0;
 
 var Util = _interopRequireWildcard(require("../../../util/Util"));
 
-var _SNode = _interopRequireDefault(require("./SNode"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var SingleLinkedList = /*#__PURE__*/function () {
-  function SingleLinkedList() {
-    _classCallCheck(this, SingleLinkedList);
-
-    this.root = null;
-    this.counter = 0;
-  } // O(N)
-
-
-  _createClass(SingleLinkedList, [{
-    key: "add",
-    value: function add(item) {
-      var node = new _SNode.default(item);
-
-      if (this.isEmpty()) {
-        this.root = node;
-      } else {
-        var lastNode = this.getLastNode();
-        lastNode.next = node;
-      }
-
-      this.counter++;
-    } // O(N) in the worst case
-
-  }, {
-    key: "get",
-    value: function get(index) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      return this.getNodeByIndex(index).data;
-    } // O(N) in the worst case
-
-  }, {
-    key: "set",
-    value: function set(index, newItem) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      var node = this.getNodeByIndex(index);
-      node.data = newItem;
-      return node.data;
-    } // O(N) in the worst case
-
-  }, {
-    key: "remove",
-    value: function remove(index) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      var node = this.root;
-
-      if (index === 0) {
-        this.root = this.root.next;
-        this.counter--;
-        return node.data;
-      }
-
-      for (var i = 2; i <= index; i++) {
-        node = node.next;
-      }
-
-      var temp = node.next;
-      node.next = node.next.next;
-      this.counter--;
-      return temp.data;
-    } // O(1)
-
-  }, {
-    key: "addToHead",
-    value: function addToHead(item) {
-      var node = new _SNode.default(item);
-      node.next = this.root;
-      this.root = node;
-      this.counter++;
-    } // O(1)
-
-  }, {
-    key: "size",
-    value: function size() {
-      return this.counter;
-    } // O(1)
-
-  }, {
-    key: "isEmpty",
-    value: function isEmpty() {
-      return this.root === null;
-    }
-  }, {
-    key: "isValidIndex",
-    value: function isValidIndex(index) {
-      return index >= 0 && index < this.size();
-    }
-  }, {
-    key: "getNodeByIndex",
-    value: function getNodeByIndex(index) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      var node = this.root;
-
-      for (var i = 1; i <= index; i++) {
-        node = node.next;
-      }
-
-      return node;
-    }
-  }, {
-    key: "getLastNode",
-    value: function getLastNode() {
-      if (this.isEmpty()) {
-        return undefined;
-      }
-
-      if (this.size() === 1) {
-        return this.root;
-      }
-
-      var node = this.root;
-
-      while (node.next !== null) {
-        node = node.next;
-      }
-
-      return node;
-    }
-  }, {
-    key: "print",
-    value: function print() {
-      Util.print("Printing the SingleLinkedList");
-      var node = this.root;
-
-      while (node != null) {
-        Util.print(node.data);
-        node = node.next;
-      }
-    }
-  }]);
-
-  return SingleLinkedList;
-}();
-
-exports.default = SingleLinkedList;
-},{"../../../util/Util":"src/util/Util.js","./SNode":"src/ds/list/linkedlist/SNode.js"}],"src/ds/list/linkedlist/DNode.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DNode = function DNode(data) {
-  _classCallCheck(this, DNode);
-
-  this.data = data;
-  this.next = null;
-  this.prev = null;
-};
-
-exports.default = DNode;
-},{}],"src/ds/list/linkedlist/DoublyLinkedList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var Util = _interopRequireWildcard(require("../../../util/Util"));
-
-var _DNode = _interopRequireDefault(require("./DNode"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var SingleLinkedList = /*#__PURE__*/function () {
-  function SingleLinkedList() {
-    _classCallCheck(this, SingleLinkedList);
-
-    this.root = null;
-    this.tail = null;
-    this.counter = 0;
-  } // O(1)
-
-
-  _createClass(SingleLinkedList, [{
-    key: "add",
-    value: function add(item) {
-      var node = new _DNode.default(item);
-
-      if (this.isEmpty()) {
-        this.root = node;
-        this.tail = node;
-      } else {
-        node.prev = this.tail;
-        this.tail.next = node;
-        this.tail = node;
-      }
-
-      this.counter++;
-    } // O(N/2)
-
-  }, {
-    key: "get",
-    value: function get(index) {
-      var node = this.getNode(index);
-      return node === undefined ? undefined : node.data;
-    } // O(N/2)
-
-  }, {
-    key: "set",
-    value: function set(index, newItem) {
-      var node = this.getNode(index);
-
-      if (node === undefined) {
-        return undefined;
-      }
-
-      node.data = newItem;
-      return node.data;
-    } // O(N/2)
-
-  }, {
-    key: "remove",
-    value: function remove(index) {
-      var node = this.getNode(index);
-
-      if (node === undefined) {
-        return undefined;
-      }
-
-      if (this.size() === 1) {
-        // The node we wanna remove is the only node in the linkedlist
-        this.root = null;
-        this.tail = null;
-        this.counter--;
-        return node.data;
-      }
-
-      if (node.prev === null) {
-        // So this is the root node
-        node.next.prev = null;
-        this.root = node.next;
-      }
-
-      if (node.next === null) {
-        // So this is the tail node
-        node.prev.next = null;
-        this.tail = node.prev;
-      }
-
-      if (node.next !== null && node.prev !== null) {
-        // So node is placed in the middle
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-      }
-
-      this.counter--;
-      return node.data;
-    } // O(1)
-
-  }, {
-    key: "addToHead",
-    value: function addToHead(item) {
-      var node = new _DNode.default(item);
-
-      if (this.isEmpty()) {
-        this.root = node;
-        this.tail = node;
-      } else {
-        node.next = this.root;
-        this.root.prev = node;
-        this.root = node;
-      }
-
-      this.counter++;
-    }
-  }, {
-    key: "size",
-    value: function size() {
-      return this.counter;
-    }
-  }, {
-    key: "isEmpty",
-    value: function isEmpty() {
-      return this.root == null;
-    }
-  }, {
-    key: "isValidIndex",
-    value: function isValidIndex(index) {
-      return index >= 0 && index < this.size();
-    } // O(N/2)
-
-  }, {
-    key: "getNode",
-    value: function getNode(index) {
-      if (!this.isValidIndex(index)) {
-        return undefined;
-      }
-
-      if (index > this.size() / 2) {
-        var node = this.tail;
-        var startIndex = this.size() - 1;
-
-        while (startIndex !== index) {
-          node = node.prev;
-          startIndex--;
-        }
-
-        return node;
-      } else {
-        var _node = this.root;
-        var _startIndex = 0;
-
-        while (_startIndex !== index) {
-          _node = _node.next;
-          _startIndex++;
-        }
-
-        return _node;
-      }
-    }
-  }, {
-    key: "print",
-    value: function print() {
-      Util.print("Printing the DoublyLinkedList");
-      var node = this.root;
-
-      while (node != null) {
-        Util.print(node.data);
-        node = node.next;
-      }
-    }
-  }]);
-
-  return SingleLinkedList;
-}();
-
-exports.default = SingleLinkedList;
-},{"../../../util/Util":"src/util/Util.js","./DNode":"src/ds/list/linkedlist/DNode.js"}],"src/ds/stack/implwitharraylist/Stack.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var Util = _interopRequireWildcard(require("../../../util/Util"));
-
-var _ArrayList = _interopRequireDefault(require("../../list/ArrayList"));
+var _Node = _interopRequireDefault(require("./Node"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -749,15 +178,23 @@ var Stack = /*#__PURE__*/function () {
   function Stack() {
     _classCallCheck(this, Stack);
 
-    this.arrayList = new _ArrayList.default();
-  } // Amortized O(1)
+    this.head = null;
+    this.counter = 0;
+  } // O(1)
 
 
   _createClass(Stack, [{
     key: "push",
     value: function push(item) {
-      this.arrayList.add(item);
-      return this.arrayList.get(this.arrayList.size() - 1);
+      var node = new _Node.default(item);
+
+      if (this.isEmpty()) {
+        this.head = node;
+      }
+
+      node.next = this.head;
+      this.head = node;
+      this.counter++;
     } // O(1)
 
   }, {
@@ -767,7 +204,7 @@ var Stack = /*#__PURE__*/function () {
         return undefined;
       }
 
-      return this.arrayList.get(this.arrayList.size() - 1);
+      return this.head.data;
     } // O(1)
 
   }, {
@@ -775,35 +212,39 @@ var Stack = /*#__PURE__*/function () {
     value: function pop() {
       if (this.isEmpty()) {
         return undefined;
-      } // O(1) Because it alwys removes the last element in the arrayList so after removing any
-      // shifting operation will not needed
+      }
 
-
-      return this.arrayList.remove(this.arrayList.size() - 1);
+      var temp = this.head.data;
+      this.head = this.head.next;
+      this.counter--;
+      return temp;
     }
   }, {
     key: "isEmpty",
     value: function isEmpty() {
-      return this.arrayList.isEmpty();
+      return this.size() === 0;
     }
   }, {
     key: "size",
     value: function size() {
-      return this.arrayList.size();
+      return this.counter;
     }
   }, {
     key: "print",
     value: function print() {
-      Util.print("Printing the Stack");
+      Util.print("Printing the Stack (L)");
+      var node = this.head;
 
-      for (var i = this.arrayList.size() - 1; i >= 0; i--) {
-        if (i === this.arrayList.size() - 1) {
-          Util.print(this.arrayList.get(i) + " <= HEAD");
+      for (var i = 0; i < this.size(); i++) {
+        if (i === this.size() - 1) {
+          Util.print(node.data + " <= BOTTOM");
         } else if (i === 0) {
-          Util.print(this.arrayList.get(i) + " <= BOTTOM");
+          Util.print(node.data + " <= HEAD");
         } else {
-          Util.print(this.arrayList.get(i));
+          Util.print(node.data);
         }
+
+        node = node.next;
       }
     }
   }]);
@@ -812,25 +253,182 @@ var Stack = /*#__PURE__*/function () {
 }();
 
 exports.default = Stack;
-},{"../../../util/Util":"src/util/Util.js","../../list/ArrayList":"src/ds/list/ArrayList.js"}],"src/index.js":[function(require,module,exports) {
+},{"../../../util/Util":"src/util/Util.js","./Node":"src/ds/stack/implwithlinkedlist/Node.js"}],"src/ds/queue/implwithsinglelinkedlist/Node.js":[function(require,module,exports) {
 "use strict";
 
-var Util = _interopRequireWildcard(require("./util/Util"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-var _ArrayList = _interopRequireDefault(require("./ds/list/ArrayList"));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _SingleLinkedList = _interopRequireDefault(require("./ds/list/linkedlist/SingleLinkedList"));
+var Node = function Node(data) {
+  _classCallCheck(this, Node);
 
-var _DoublyLinkedList = _interopRequireDefault(require("./ds/list/linkedlist/DoublyLinkedList"));
+  this.data = data;
+  this.next = null;
+};
 
-var _Stack = _interopRequireDefault(require("./ds/stack/implwitharraylist/Stack"));
+exports.default = Node;
+},{}],"src/ds/queue/implwithsinglelinkedlist/Queue.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var Util = _interopRequireWildcard(require("../../../util/Util"));
+
+var _Node = _interopRequireDefault(require("./Node"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./util/Util":"src/util/Util.js","./ds/list/ArrayList":"src/ds/list/ArrayList.js","./ds/list/linkedlist/SingleLinkedList":"src/ds/list/linkedlist/SingleLinkedList.js","./ds/list/linkedlist/DoublyLinkedList":"src/ds/list/linkedlist/DoublyLinkedList.js","./ds/stack/implwitharraylist/Stack":"src/ds/stack/implwitharraylist/Stack.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Queue = /*#__PURE__*/function () {
+  function Queue() {
+    _classCallCheck(this, Queue);
+
+    this.head = null;
+    this.tail = null;
+    this.counter = 0;
+  } // O(1)
+
+
+  _createClass(Queue, [{
+    key: "enQueue",
+    value: function enQueue(item) {
+      var node = new _Node.default(item);
+
+      if (this.isEmpty()) {
+        this.head = node;
+        this.tail = this.head;
+      } else {
+        this.tail.next = node;
+        this.tail = this.tail.next;
+      }
+
+      this.counter++;
+    } // O(1)
+
+  }, {
+    key: "deQueue",
+    value: function deQueue() {
+      if (this.isEmpty()) {
+        return undefined;
+      }
+
+      var temp = this.head.data;
+      this.head = this.head.next;
+
+      if (this.size() === 1) {
+        this.tail == null;
+      }
+
+      this.counter--;
+      return temp;
+    } // O(1)
+
+  }, {
+    key: "peek",
+    value: function peek() {
+      if (this.isEmpty()) {
+        return undefined;
+      }
+
+      return this.head.data;
+    }
+  }, {
+    key: "isEmpty",
+    value: function isEmpty() {
+      return this.size() === 0;
+    }
+  }, {
+    key: "size",
+    value: function size() {
+      return this.counter;
+    }
+  }, {
+    key: "print",
+    value: function print() {
+      Util.print("Printing the Queue");
+      var node = this.head;
+
+      for (var i = 0; i < this.size(); i++) {
+        if (i === this.size() - 1) {
+          Util.print(node.data + " <= TAIL");
+        } else if (i === 0) {
+          Util.print(node.data + " <= HEAD");
+        } else {
+          Util.print(node.data);
+        }
+
+        node = node.next;
+      }
+    }
+  }]);
+
+  return Queue;
+}();
+
+exports.default = Queue;
+},{"../../../util/Util":"src/util/Util.js","./Node":"src/ds/queue/implwithsinglelinkedlist/Node.js"}],"src/index.js":[function(require,module,exports) {
+"use strict";
+
+var Util = _interopRequireWildcard(require("./util/Util"));
+
+var _Stack = _interopRequireDefault(require("./ds/stack/implwithlinkedlist/Stack"));
+
+var _Queue = _interopRequireDefault(require("./ds/queue/implwithsinglelinkedlist/Queue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// const stack = new Stack();
+// stack.push(1);
+// stack.push(2);
+// stack.push(3);
+// stack.push(4);
+// stack.print();
+// Util.print("peek => " + stack.peek());
+// Util.print("pop => " + stack.pop());
+// Util.print("pop => " + stack.pop());
+// stack.print();
+// Util.print("pop => " + stack.pop());
+// Util.print("pop => " + stack.pop());
+// Util.print("pop => " + stack.pop());
+// stack.print();
+var queue = new _Queue.default();
+queue.enQueue(1);
+queue.enQueue(2);
+queue.enQueue(3);
+queue.enQueue(4);
+queue.print();
+Util.print("peek() => " + queue.peek());
+Util.print("size = " + queue.size());
+Util.print("deQueue() => " + queue.deQueue());
+Util.print("deQueue() => " + queue.deQueue());
+queue.print();
+Util.print("enQueue(5)");
+queue.enQueue(5);
+queue.print();
+Util.print("enQueue(6)");
+queue.enQueue(6);
+queue.print();
+},{"./util/Util":"src/util/Util.js","./ds/stack/implwithlinkedlist/Stack":"src/ds/stack/implwithlinkedlist/Stack.js","./ds/queue/implwithsinglelinkedlist/Queue":"src/ds/queue/implwithsinglelinkedlist/Queue.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -858,7 +456,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65442" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62829" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

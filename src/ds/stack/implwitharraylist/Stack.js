@@ -41,7 +41,7 @@ export default class Stack {
   }
 
   print() {
-    Util.print("Printing the Stack");
+    Util.print("Printing the Stack (A)");
     for (let i = this.arrayList.size() - 1; i >= 0; i--) {
       if (i === this.arrayList.size() - 1) {
         Util.print(this.arrayList.get(i) + " <= HEAD");
