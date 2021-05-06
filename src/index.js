@@ -1,50 +1,31 @@
 import * as Util from "./util/Util";
 
-import Stack from "./ds/stack/implwithlinkedlist/Stack";
-import Queue from "./ds/queue/implwithsinglelinkedlist/Queue";
+import HashTable from "./ds/hashtable/HashTableWithChaining";
 
-// const stack = new Stack();
-// stack.push(1);
-// stack.push(2);
-// stack.push(3);
-// stack.push(4);
+const hashTable = new HashTable();
+hashTable.put("bir", 1);
+hashTable.put("iki", 2);
+hashTable.put("uc", 3);
+hashTable.put("dort", 4);
+hashTable.put("bes", 5);
+hashTable.put("alti", 6);
 
-// stack.print();
+hashTable.put("", 666);
 
-// Util.print("peek => " + stack.peek());
-// Util.print("pop => " + stack.pop());
-// Util.print("pop => " + stack.pop());
+hashTable.put("alti", 7);
 
-// stack.print();
+//hashTable.print();
 
-// Util.print("pop => " + stack.pop());
-// Util.print("pop => " + stack.pop());
-// Util.print("pop => " + stack.pop());
+// Util.print(hashTable.get("alti"));
+// Util.print(hashTable.get("alal"));
+// Util.print(hashTable.get(""));
 
-// stack.print();
+Util.print(hashTable.set("alti", 66));
 
-const queue = new Queue();
-queue.enQueue(1);
-queue.enQueue(2);
-queue.enQueue(3);
-queue.enQueue(4);
+Util.print(hashTable.set("eded", 77));
 
-queue.print();
+Util.print(hashTable.remove("alti"));
 
-Util.print("peek() => " + queue.peek());
-Util.print("size = " + queue.size());
+Util.print(hashTable.remove("dort"));
 
-Util.print("deQueue() => " + queue.deQueue());
-Util.print("deQueue() => " + queue.deQueue());
-
-queue.print();
-
-Util.print("enQueue(5)");
-queue.enQueue(5);
-
-queue.print();
-
-Util.print("enQueue(6)");
-queue.enQueue(6);
-
-queue.print();
+hashTable.print();
