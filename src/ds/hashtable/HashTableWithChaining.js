@@ -9,6 +9,7 @@ export default class HashTable {
     ];
   }
 
+  // The best O(1) the worst O(N)
   put(key, value) {
     const hash = this.hash(key);
     const newNode = new Node(key, value);
@@ -31,6 +32,7 @@ export default class HashTable {
     this.counter++;
   }
 
+  // The best O(1) the worst O(N)
   get(key) {
     const node = this.getNode(key);
     if (node) {
@@ -40,6 +42,7 @@ export default class HashTable {
     }
   }
 
+  // The best O(1) the worst O(N)
   set(key, value) {
     const node = this.getNode(key);
     if (node) {
@@ -50,6 +53,7 @@ export default class HashTable {
     }
   }
 
+  // The best O(1) the worst O(N)
   remove(key) {
     const hash = this.hash(key);
     let node = this.internalArray[hash];

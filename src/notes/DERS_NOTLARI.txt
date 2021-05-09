@@ -155,6 +155,68 @@ deQueue() -> O(1)
 peek() -> O(1)
 
 
+4. Ders
+
+-- Associative Arrays --
+
+Associative array, map, symbol table, yaxud dictionary ADT Açar (key) və Dəyər (value) cütlüklərini özündə saxlayır. Önəmli
+detallardan biri isə eyni açar (key) in yalnız bir dəfə iştirak edəcəyidir.
+
+-- Hash Table --
+Hash table Associative Arrays ADT - ni implement eden DS lərdən biridir. Hsh Table arxa tərəfdə bir array saxlayır vəverilən 
+key və value nun key-indən hash codunu hesablıyaraq həmin cütlüyün arrayın hansı indeksində yerləşdiriləcəyini müəyyənləş-
+dirir. Sonra yenidən həmin key vasitəsi ilə value sorğulanan zaman Hash Table yenidən göndərilən keyə əsasən onun hash - ını
+hesablayır və bu key ilə daxil olunmuş key-value cütlüyü əgər varsa arxadakı arrayın hansı indeksində ola biləcəyini müəyyənləş-
+dirir.
+
+
+Hash funksiyası elə bir funcsiyasıdır ki, ona daxil olan ixtiyari sonsuz sayda dəyəri xüsusi dəyər aralıqı ilə əvəz edir. Bu funnk-
+siyadan geri qayıdan dəyərə hash, hash code, hash value və ya digest deyilir.
+
+İnput sonsuz sayda => hash() => Output sonlu sayda
+
+Ancaq, Hash Table nin arxa tərəfdə cütlükləri saxladıqı array in ölcüsünün bir limiti olduquna görə bir nöqtədən sonra
+Array tmamilə dolacaqdır və yeni cütlük daxil etməyə yer qalmayacaqdır. Buna collission (Kəsişmə, üst-üstə minmə) halı deyilir
+və bu problemin üstəsindən gəlmək üçün mıxtəlif strategiyalar var.
+
+-- Chaining (Zincirləmə) --
+
+Burada arxadakı arrayın hər slot (qutu və ya index) ində yalnız bir dəyər saxlamaq əvəzinə burada linked list saxlaya bilərik.
+Və bununla da kəsişmə problemi həll olar. Sadecə problem burdadır ki , bu halda əgər hash() funksiyamız bir çox key üçün
+eyni code geri göndərərsə bunlar hamısı bir slotda single listin node ləri olaraq tutulacaq və sonradan həmin valuelərin
+içindən axtardımız dəyəri tapmaq uzun zaman başa gələcəkdir. Çünki biz Həmin slotdakı linkedlist in nodlarını bir-bir axtarmalı
+və axtardıqmız key in orda olub olmaıdıqnı müəyyənləşdirməli olacaqıq. Amma , uyğulanması olduqca asandır.
+
+Əməliyyatlar
+put(key, value) => The best O(1), The worst O(N)
+get(key) => The best O(1), The worst O(N)
+set(key, value) => The best O(1), The worst O(N)
+delete(key) => The best O(1), The worst O(N)
+
+-- Probbing (yoxlama, deneme-yanılma) --
+
+Bu da collission problemi həll etmək üçün istifadə olunan başqa bir strategiyadır. Burada isə əgər key ə uyğun hash ı hesabla-
+dıqdan sonra görsək ki, index doludur digər indeksə yerləşdirik. Probbing in də fərqli növləri var. Məsələn linear probbing.
+Burada əgər index doludursə həmən növbəti indeksə baxırıq və ora boşdursə ora yerləşdirir yox əgər ora da doludursə bir növbətiyə 
+baxırıq və s. Buradakı problem də odur ki , Boş indeksi tapmaq bizə vaxt itkisi olaraq geri qayıdacaqdır. Yenə də bu üsul
+chaining dən daha əlverişli sayılır. 
+
+Probbing strategiyası ilə əlaqəli önəmli detallardan biri odur ki , əlbətdə ki , bir müddətdən sonra arxadakı array tamami ilə dolacaqdır və
+bizim onu böyütməyimiz gərəcəkdir. Bu zaman içaridə ola  bütün dəyərlrəin yeni yaradılacaq arrayən öıçüsünə uyğun hash
+ları hesablanmalı və onlar yenidən hər biri kphnə arrayın içindən gıtürülərək yeniyə doldurulmalıdıdr. Və bu proses olduqca 
+ləngdir.
+
+Əməliyyatlar
+put(key, value) => The best O(1), The worst O(N)
+get(key) => The best O(1), The worst O(N)
+set(key, value) => The best O(1), The worst O(N)
+delete(key) => The best O(1), The worst O(N)
+
+
+
+
+
+
 
 
 

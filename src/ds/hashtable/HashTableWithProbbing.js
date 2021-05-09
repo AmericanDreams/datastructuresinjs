@@ -11,6 +11,7 @@ export default class HashTable {
     ];
   }
 
+  // The best O(1) the worst O(N)
   put(key, value) {
     if (this.isFull()) {
       this.reSize();
@@ -33,6 +34,7 @@ export default class HashTable {
     }
   }
 
+  // The best O(1) the worst O(N)
   get(key) {
     const item = this.getItem(key);
     if (item) {
@@ -41,6 +43,7 @@ export default class HashTable {
     return undefined;
   }
 
+  // The best O(1) the worst O(N)
   set(key, value) {
     const item = this.getItem(key);
     if (item) {
@@ -50,6 +53,7 @@ export default class HashTable {
     return undefined;
   }
 
+  // The best O(1) the worst O(N)
   remove(key) {
     let hash = this.hash(key);
     let slot = this.internalArray[hash];
@@ -69,6 +73,7 @@ export default class HashTable {
     }
   }
 
+  // The best O(1) the worst O(N)
   getItem(key) {
     let hash = this.hash(key);
     let slot = this.internalArray[hash];
