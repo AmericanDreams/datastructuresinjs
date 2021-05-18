@@ -213,6 +213,64 @@ set(key, value) => The best O(1), The worst O(N)
 delete(key) => The best O(1), The worst O(N)
 
 
+5. Ders
+
+-- Binary Search Tree (BST) --
+BST həmçinin Ordered və ya Sorted binary tree adlanır. Bu DS Ağac strukturuna sahibdir. Digər Tree lərdən fərqi odur ki,
+burada hər nodun ən çox 2 dənə child (uşaq) nodu ola bilər və ən önəmlisi nodun sağ tərəfdəki child nodu həmişə ondan böyük , sol tərəfindəki 
+isə ondan kiçik olmalıdır. 
+BST bir root (kök) nodu olur və bu nodun digərlərindən fərqi odur ki , onun parent (ata) nodu yoxdur.
+BST işərisində digər fərqli ada sahib olan nod tipi isə leaf (yarpaq) nodlar adlanır bunlar isə heç bir child i olmayan nodlara deyilir.
+BST işərəsəndə istənilən bir nodu ələ aldıqda onun sağ sub-tree sindəki (sağ sub tree həmin nodun sağındakı nodun 
+root node olduqu tree ya deyilir) ən kiçik dəyərə Successor , və əksinə istənilən nodu ələ aldıqda onun sol sub-tree sindəki
+ən böyük dəyərə isə Predecessor deyilir.
+
+BST bəzi başqa DS ləri yaratmaq üçün istifadə oluna bilir məsələn Dynamic Set, Assosiative Array, Lookup Table.
+
+BST lər rəqəmlari yalnız özündə saxlaya bilər və onları xüsusi yol ilə organizə etmək istədikdə biz BST dən istifade edirik.
+Çünki BST nin içincən hər hansı dəyəri axtarmaq olduqca sürətli prosesdir. Hər axtarış zamanı Axtardıqımız dəyərin BST nin node si ilə
+müqayisə etdikdən sonra həmin nodun child lərinin yarısını çıxdaş etmiş oluruq. Yəni əgər görsək ki, axtardıqımız dəyər node dən böyükdür
+biz əmin oluruq ki, həmin dəyər olsa olsa nodun sağ tərəfində olar ya da əksinə. Və beləliklə başlayırıq, nodun sağ child i 
+ilə müqayisə etməyə və bu beləcə ta ki, axtardımız dəyəri tapana və ya leaf nodə çatana qədər davam edir. Bu əməliyyat ortalama
+O(Log(N)) vaxta başa gəlir.
+
+
+Əməliyyatlar
+search (value) => Ortalama O(Log(N)) amma ən pis halda O(N)
+Ən pis halda O(N) olmaqın səbə odur ki , məsələn biz əgər bir sorted array dən BST düzətsək, Bu o demekdir ki, BST nin içərisindəki
+node lərin yalnız sağ childi olacaq. Və bu əslində linked list dən fərqlənməyəcək. Bu hala Unbalanced yəni balansı pozulmuş BST deyilir.
+Və BST unbalanced olduqu hallarda o ondan gözləlindiyi kimi, əməliyyatlara O(log(N)) vaxtda cavab verə bilməyəcək.
+
+insert(value) => Ortalama O(Log(N)) amma ən pis halda O(N)
+Yenə eyni səbəbə görə (unbalanced olduqu halda) BST linked list kimi davrandıqına görə O(N) vaxta vavab verə bilər.
+
+remove(value) => Ortalama O(Log(N)) amma ən pis halda O(N)
+Yenə eyni səbəbə görə (unbalanced olduqu halda) BST linked list kimi davrandıqına görə O(N) vaxta vavab verə bilər.
+
+traverse (bir ucdan digər uca getmək) => O(N)
+Traverse əməliyyatı əslində sadecə bütün nodları gəzmək deməkdir. Məsələn biz bu əməliyyatı linkedl list də edirdik (print metoduna bax)
+onu print etmək üçün. Yəni traverse etmək sadecə içindəi, bütün elementlərin özürindən keçmək deməkdir. Normalda bütün elementlerə
+print etmək üçün filan istifadə olunur. Amma BST linked listə, arraya və s, linear (linear bir ucu və bir sonu olmaq deməkdir) 
+DS lərə nəzərən qarışıq strukturda olduqu üçün burada necə traverse etməli olduqumuz məsələsi önəm qazanır. Çünki BST linear deyil
+və biz bütün nodları gözmək istəyiriksə mütləq ziq-zaq getməliyik və burada müxtəlif strategiyalar var. Bunlar aşağıdakılardır.
+
+İn-Order
+Burada əvvəlcə sol tərəfdəki child, daha sonra parent daha sonra isə sağ tərəfdəki child in üzərindən keçilir. Amma unutmamaq lazımdır ki,
+məsələn sol tərəfdəki child i əlimizə aldıq və gördük ki, onun özünün də sol tərəfdə childi var , qayda burada da saxlanılmalıdıdr. Yıni əvvəlcə
+həmin sol tərəfdəki child daha sonra nodun özünün (çünki o nodun özünün souldakının parent idir) üzərindən keçilə bilər.
+Və strategiya ilə BST dəki nodların bir ucundan digərinıə getdikdə əslində BST nin içindəki nodlar Sorted (kişikdən böyüyə)
+getmiş olacağıq. Yəni əgər bizdən BST nin içindəki dəyərləri sorted olaraq əlda etməyimiz istənilirsə in-order traversal etmək lazımdır deməkdir.
+
+
+Pre-Order
+Burada parent , daha sonbra sol child daha sonra sağ child 
+
+Post-Order
+Burada əvvəlcə sol child sonra sağ child daha sonra parent node.
+
+
+
+
 
 
 

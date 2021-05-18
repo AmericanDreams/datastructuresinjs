@@ -1,6 +1,6 @@
 import * as Util from "../../util/Util";
 
-const MIN_CAPASITY = 3;
+const MIN_CAPASITY = 10;
 
 export default class HashTable {
   constructor() {
