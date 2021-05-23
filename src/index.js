@@ -1,6 +1,6 @@
 import * as Util from "./util/Util";
 import BST from "./ds/tree/bst/BSTwithSingleLinkedList";
-import HashTable from "./ds/hashtable/HashTableWithProbbing2";
+import HashTable from "./ds/hashtable/HashTableWithChaining2";
 
 const bst = new BST();
 // bst.insert(12);
@@ -36,55 +36,21 @@ const bst = new BST();
 
 // bst.traverse("in-order");
 
-// const hashTable = new HashTable();
-// hashTable.put("9aaaaaaaa", 1);
-// hashTable.put("iki", 2);
-// hashTable.put("uc", 3);
-// hashTable.put("dort", 4);
-// hashTable.put("bes", 5);
-// hashTable.put("alti", 6);
+// const table = new HashTable();
+// table.put("bir", 1);
+// table.put("bir", 2);
+// table.put("iki", 2);
+// table.put("uc", 3);
+// table.put("dort", 4);
+// table.put("besh", 5);
+// table.put("alti", 6);
+// table.put("yeddi", 7);
+// table.put("sekkiz", 8);
 
-// //hashTable.print();
-
-// hashTable.put("", 666);
-
-// //hashTable.print();
-
-// hashTable.put("alti", 7);
-
-// //hashTable.print();
-
-// Util.print(hashTable.get("alti"));
-// Util.print(hashTable.get("alal"));
-// Util.print(hashTable.get(""));
-
-// Util.print(hashTable.set("alti", 66));
-
-// Util.print(hashTable.set("eded", 77));
-
-// //hashTable.print();
-
-// Util.print(hashTable.remove("iki"));
-
-// Util.print("iki removed");
-
-// hashTable.put("iki", 2222);
-// // //hashTable.print();
-
-// hashTable.put("a", 2222);
-// hashTable.put("b", 3333);
-
-// //hashTable.print();
-// // Util.print("---------------");
-
-// hashTable.put("c", 3333);
-// hashTable.remove("c");
-// hashTable.remove("b");
-// hashTable.remove("a");
-
-// hashTable.put("b", 3333);
-
-// Util.print("counter = " + hashTable.counter);
-// Util.print("realCounter = " + hashTable.realCounter);
-
-// hashTable.print();
+// Util.print("set(bir, 111) => " + table.set("bir", 111));
+// Util.print("bir = " + table.get("bir"));
+// Util.print("iki = " + table.get("iki"));
+// Util.print("remove(bir) => " + table.remove("bir"));
+// Util.print("bir = " + table.get("bir"));
+// Util.print("remove(iki) => " + table.remove("iki"));
+// Util.print("remove(besh) => " + table.remove("besh"));

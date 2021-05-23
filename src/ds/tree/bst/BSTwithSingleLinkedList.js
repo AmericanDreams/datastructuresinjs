@@ -78,6 +78,10 @@ export default class BSTwithSingleLinkedList {
       case "pre-order":
         this.preOrderTraverse(this.root, result);
         break;
+
+      default:
+        this.inOrderTraverse(this.root, result);
+        break;
     }
 
     Util.print(result);
