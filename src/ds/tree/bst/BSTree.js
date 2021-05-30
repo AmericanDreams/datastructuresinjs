@@ -1,6 +1,6 @@
 import * as Util from "../../../util/Util";
 
-export default class BSTwithSingleLinkedList {
+export default class BSTree {
   constructor() {
     this.root = undefined;
   }

@@ -1,56 +1,45 @@
 import * as Util from "./util/Util";
-import BST from "./ds/tree/bst/BSTwithSingleLinkedList";
-import HashTable from "./ds/hashtable/HashTableWithChaining2";
+import Trie from "./ds/trie/Trie";
+import AA from "./ds/associativearray/AABasedOnTrie";
 
-const bst = new BST();
-// bst.insert(12);
-// bst.insert(55);
-// bst.insert(1);
-// bst.insert(156);
-// bst.insert(-10);
+// const trie = new Trie();
+// Util.print(trie.insert("salam"));
+// Util.print(trie.insert("salam"));
+// Util.print(trie.insert("sal"));
+// Util.print(trie.insert("necesen"));
 
-// Util.print("Min = " + bst.getMin());
-// Util.print("Max = " + bst.getMax());
+// Util.print("printing started");
+// trie.printSorted();
+// Util.print("printing finished");
 
-// bst.traverse("in-order");
-// bst.traverse("pre-order");
-// bst.traverse("post-order");
+// Util.print(trie.contains("s"));
+// Util.print(trie.contains("salam"));
+// Util.print(trie.contains("salamlar"));
 
-// Util.print(bst.search(12));
-// Util.print(bst.search(66));
+// Util.print("remove started");
+// Util.print(trie.remove("al"));
+// Util.print(trie.remove("salam"));
 
-// Util.print(bst.delete(12) + " is removed");
+// Util.print("remove finished");
+// Util.print(trie.contains("salam"));
 
-// bst.traverse("in-order");
+// Util.print("reinsert started");
+// Util.print(trie.insert("salam"));
+// Util.print(trie.contains("salam"));
 
-// Util.print(bst.delete(12) + " is removed");
+const aa = new AA();
+Util.print(aa.insert("bir", 1));
+Util.print(aa.insert("iki", 2));
 
-// bst.traverse("in-order");
+Util.print(aa.find("uc"));
+Util.print(aa.find("iki"));
 
-// Util.print(bst.search(-10));
+Util.print(aa.remove("uc"));
+Util.print(aa.remove("bir"));
+Util.print(aa.find("bir"));
 
-// Util.print(bst.delete(55) + " is removed");
-// Util.print(bst.delete(156) + " is removed");
-// Util.print(bst.delete(1) + " is removed");
-// Util.print(bst.delete(-10) + " is removed");
+aa.insert("uc", 3);
+aa.insert("dort", 4);
 
-// bst.traverse("in-order");
-
-// const table = new HashTable();
-// table.put("bir", 1);
-// table.put("bir", 2);
-// table.put("iki", 2);
-// table.put("uc", 3);
-// table.put("dort", 4);
-// table.put("besh", 5);
-// table.put("alti", 6);
-// table.put("yeddi", 7);
-// table.put("sekkiz", 8);
-
-// Util.print("set(bir, 111) => " + table.set("bir", 111));
-// Util.print("bir = " + table.get("bir"));
-// Util.print("iki = " + table.get("iki"));
-// Util.print("remove(bir) => " + table.remove("bir"));
-// Util.print("bir = " + table.get("bir"));
-// Util.print("remove(iki) => " + table.remove("iki"));
-// Util.print("remove(besh) => " + table.remove("besh"));
+Util.print("printing");
+aa.printSorted();

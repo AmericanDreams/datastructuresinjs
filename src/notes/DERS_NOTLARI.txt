@@ -269,6 +269,25 @@ Post-Order
 Burada əvvəlcə sol child sonra sağ child daha sonra parent node.
 
 
+6. Ders
+
+Trie və ya prefix Tree yaxud digital Tree DS
+
+Trie də Ağacvari (treelike) DS dir burada her nod yalniz bir hərd özündə saxlayır. Və bir bura hansı sa
+sözü əlavə etdikdə həmin söz hərflərinə ayrılaraq sırası ilə hər hərf bir nod və hər növbəti hərf əlavə olunmuş
+nodun childi kimi elavə olunmaqa başlayır. Kök (root) not özündə boşlıqı saxlayır. Əslində sözlərin
+kök dən başlayaraq salxım kimi sallanması başa düşə bilərik. Və eyni söz iki dəfə əlavə oluna bilməz.
+
+Olduqca xeyirli DS dir. Əgər Trie dən istifadə edərək Associative Array düzəldərsək (key lər sözlər olacaq)
+bu çox sörətli işləyəcəkdir. Çünki Trie içərisindəki əməliyyatlar onun içindəki nodların sayından asılı deyil. 
+Sadecə axtarılan və ya daxil edilmək istənilən sözün hərflərinin sayından asılıdır.
+
+Bundan əlavə olaraq Trie həm də içindəki sözləri sorted şəkildə traverse etməyə icazə verdiyinə görə onun köməyi ilə
+düzətdiyimiz Assciative Array in sort() funksionallıqı da olacaqdır.
+
+Yalnız sürət və Yaddaş arasındakı tərs mütanasib asılıqıq bu DS də də özünü göstərir. Trie çox sörətli olsa da
+yaddaş baxımından olduqca xeyirsizdir. Çünki buarada hər nodun 26 (ingilis əlifbasındakı hərflərin sayı) qədər
+child nodu ola bilər. Və bu da nəticədə böyük miqyaslı yaddaş israfı deməkdir.
 
 
 
