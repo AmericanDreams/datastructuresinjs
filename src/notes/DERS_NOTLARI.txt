@@ -289,6 +289,17 @@ Yalnız sürət və Yaddaş arasındakı tərs mütanasib asılıqıq bu DS də 
 yaddaş baxımından olduqca xeyirsizdir. Çünki buarada hər nodun 26 (ingilis əlifbasındakı hərflərin sayı) qədər
 child nodu ola bilər. Və bu da nəticədə böyük miqyaslı yaddaş israfı deməkdir.
 
+7. Ders
+
+Ternary Search Tree (TST)
+
+TST də əslində Trie və ya prefix tree dir sadəcə onun xüsusi bir növüdür hansı ki burada
+hər bir nodun yalnız və yalnız 3 child i ola bilər. Bu da öz növbəsində yaddaşdan daha effektiv istifadəyə
+gətirib çıxarır.
+
+Əməliyyatlar
+insert, search, remove - Ortalama O(logN) amma ən pis halda O(N)
+
 
 
 

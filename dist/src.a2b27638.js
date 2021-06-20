@@ -132,7 +132,7 @@ var print = function print(text) {
 };
 
 exports.print = print;
-},{}],"src/ds/stack/implwithlinkedlist/Node.js":[function(require,module,exports) {
+},{}],"src/algorithms/sort/BogoSort.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -140,29 +140,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Node = function Node(data) {
-  _classCallCheck(this, Node);
-
-  this.data = data;
-  this.next = null;
-};
-
-exports.default = Node;
-},{}],"src/ds/stack/implwithlinkedlist/Stack.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var Util = _interopRequireWildcard(require("../../../util/Util"));
-
-var _Node = _interopRequireDefault(require("./Node"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var Util = _interopRequireWildcard(require("../../util/Util"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -174,86 +152,64 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Stack = /*#__PURE__*/function () {
-  function Stack() {
-    _classCallCheck(this, Stack);
+var BogoSort = /*#__PURE__*/function () {
+  function BogoSort(array) {
+    _classCallCheck(this, BogoSort);
 
-    this.head = null;
-    this.counter = 0;
-  } // O(1)
+    this.array = array;
+  } // O(N!)
 
 
-  _createClass(Stack, [{
-    key: "push",
-    value: function push(item) {
-      var node = new _Node.default(item);
+  _createClass(BogoSort, [{
+    key: "sort",
+    value: function sort() {
+      var counter = 1;
 
-      if (this.isEmpty()) {
-        this.head = node;
+      while (!this.isSorted()) {
+        this.createPermutation();
+        counter++;
       }
 
-      node.next = this.head;
-      this.head = node;
-      this.counter++;
-    } // O(1)
+      Util.print("After " + counter + " permutation creation.");
+      this.print();
+    } // O(N)
 
   }, {
-    key: "peek",
-    value: function peek() {
-      if (this.isEmpty()) {
-        return undefined;
+    key: "createPermutation",
+    value: function createPermutation() {
+      for (var i = this.array.length - 1; i > 0; i--) {
+        this.swap(i, parseInt(i * Math.random()));
       }
-
-      return this.head.data;
-    } // O(1)
-
-  }, {
-    key: "pop",
-    value: function pop() {
-      if (this.isEmpty()) {
-        return undefined;
-      }
-
-      var temp = this.head.data;
-      this.head = this.head.next;
-      this.counter--;
-      return temp;
     }
   }, {
-    key: "isEmpty",
-    value: function isEmpty() {
-      return this.size() === 0;
+    key: "swap",
+    value: function swap(first, second) {
+      if (second < 0 || first < 0 || first >= this.array.length || second >= this.array.length) return;
+      var temp = this.array[first];
+      this.array[first] = this.array[second];
+      this.array[second] = temp;
     }
   }, {
-    key: "size",
-    value: function size() {
-      return this.counter;
+    key: "isSorted",
+    value: function isSorted() {
+      for (var i = 0; i < this.array.length - 1; i++) {
+        if (this.array[i] > this.array[i + 1]) return false;
+      }
+
+      return true;
     }
   }, {
     key: "print",
     value: function print() {
-      Util.print("Printing the Stack (L)");
-      var node = this.head;
-
-      for (var i = 0; i < this.size(); i++) {
-        if (i === this.size() - 1) {
-          Util.print(node.data + " <= BOTTOM");
-        } else if (i === 0) {
-          Util.print(node.data + " <= HEAD");
-        } else {
-          Util.print(node.data);
-        }
-
-        node = node.next;
-      }
+      Util.print(this.array);
     }
   }]);
 
-  return Stack;
+  return BogoSort;
 }();
 
-exports.default = Stack;
-},{"../../../util/Util":"src/util/Util.js","./Node":"src/ds/stack/implwithlinkedlist/Node.js"}],"src/ds/queue/implwithsinglelinkedlist/Node.js":[function(require,module,exports) {
+exports.default = BogoSort;
+},{"../../util/Util":"src/util/Util.js"}],"src/algorithms/sort/BubbleSort.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -261,29 +217,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Node = function Node(data) {
-  _classCallCheck(this, Node);
-
-  this.data = data;
-  this.next = null;
-};
-
-exports.default = Node;
-},{}],"src/ds/queue/implwithsinglelinkedlist/Queue.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var Util = _interopRequireWildcard(require("../../../util/Util"));
-
-var _Node = _interopRequireDefault(require("./Node"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var Util = _interopRequireWildcard(require("../../util/Util"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -295,101 +229,117 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Queue = /*#__PURE__*/function () {
-  function Queue() {
-    _classCallCheck(this, Queue);
+var BubbleSort = /*#__PURE__*/function () {
+  function BubbleSort(array) {
+    _classCallCheck(this, BubbleSort);
 
-    this.head = null;
-    this.tail = null;
-    this.counter = 0;
-  } // O(1)
+    this.array = array;
+  } //O(N*N)
 
 
-  _createClass(Queue, [{
-    key: "enQueue",
-    value: function enQueue(item) {
-      var node = new _Node.default(item);
-
-      if (this.isEmpty()) {
-        this.head = node;
-        this.tail = this.head;
-      } else {
-        this.tail.next = node;
-        this.tail = this.tail.next;
+  _createClass(BubbleSort, [{
+    key: "sort",
+    value: function sort() {
+      for (var i = this.array.length - 1; i > 0; i--) {
+        for (var k = 0; k < i; k++) {
+          if (this.array[k] > this.array[k + 1]) this.swap(k, k + 1);
+        }
       }
 
-      this.counter++;
-    } // O(1)
-
-  }, {
-    key: "deQueue",
-    value: function deQueue() {
-      if (this.isEmpty()) {
-        return undefined;
-      }
-
-      var temp = this.head.data;
-      this.head = this.head.next;
-
-      if (this.size() === 1) {
-        this.tail == null;
-      }
-
-      this.counter--;
-      return temp;
-    } // O(1)
-
-  }, {
-    key: "peek",
-    value: function peek() {
-      if (this.isEmpty()) {
-        return undefined;
-      }
-
-      return this.head.data;
+      this.print();
     }
   }, {
-    key: "isEmpty",
-    value: function isEmpty() {
-      return this.size() === 0;
-    }
-  }, {
-    key: "size",
-    value: function size() {
-      return this.counter;
+    key: "swap",
+    value: function swap(first, second) {
+      if (second < 0 || first < 0 || first >= this.array.length || second >= this.array.length) return;
+      var temp = this.array[first];
+      this.array[first] = this.array[second];
+      this.array[second] = temp;
     }
   }, {
     key: "print",
     value: function print() {
-      Util.print("Printing the Queue");
-      var node = this.head;
-
-      for (var i = 0; i < this.size(); i++) {
-        if (i === this.size() - 1) {
-          Util.print(node.data + " <= TAIL");
-        } else if (i === 0) {
-          Util.print(node.data + " <= HEAD");
-        } else {
-          Util.print(node.data);
-        }
-
-        node = node.next;
-      }
+      Util.print(this.array);
     }
   }]);
 
-  return Queue;
+  return BubbleSort;
 }();
 
-exports.default = Queue;
-},{"../../../util/Util":"src/util/Util.js","./Node":"src/ds/queue/implwithsinglelinkedlist/Node.js"}],"src/index.js":[function(require,module,exports) {
+exports.default = BubbleSort;
+},{"../../util/Util":"src/util/Util.js"}],"src/algorithms/sort/SelectionSort.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var Util = _interopRequireWildcard(require("../../util/Util"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SelectionSort = /*#__PURE__*/function () {
+  function SelectionSort(array) {
+    _classCallCheck(this, SelectionSort);
+
+    this.array = array;
+  }
+
+  _createClass(SelectionSort, [{
+    key: "sort",
+    value: function sort() {
+      for (var i = this.array.length - 1; i >= 0; i--) {
+        var maxIndex = i;
+
+        for (var k = 0; k < i; k++) {
+          if (this.array[maxIndex] < this.array[k]) {
+            maxIndex = k;
+          }
+        }
+
+        this.swap(maxIndex, i);
+      }
+
+      this.print();
+    }
+  }, {
+    key: "swap",
+    value: function swap(first, second) {
+      if (second < 0 || first < 0 || first >= this.array.length || second >= this.array.length || first === second) return;
+      var temp = this.array[first];
+      this.array[first] = this.array[second];
+      this.array[second] = temp;
+    }
+  }, {
+    key: "print",
+    value: function print() {
+      Util.print(this.array);
+    }
+  }]);
+
+  return SelectionSort;
+}();
+
+exports.default = SelectionSort;
+},{"../../util/Util":"src/util/Util.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var Util = _interopRequireWildcard(require("./util/Util"));
 
-var _Stack = _interopRequireDefault(require("./ds/stack/implwithlinkedlist/Stack"));
+var _BogoSort = _interopRequireDefault(require("./algorithms/sort/BogoSort"));
 
-var _Queue = _interopRequireDefault(require("./ds/queue/implwithsinglelinkedlist/Queue"));
+var _BubbleSort = _interopRequireDefault(require("./algorithms/sort/BubbleSort"));
+
+var _SelectionSort = _interopRequireDefault(require("./algorithms/sort/SelectionSort"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -397,38 +347,10 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// const stack = new Stack();
-// stack.push(1);
-// stack.push(2);
-// stack.push(3);
-// stack.push(4);
-// stack.print();
-// Util.print("peek => " + stack.peek());
-// Util.print("pop => " + stack.pop());
-// Util.print("pop => " + stack.pop());
-// stack.print();
-// Util.print("pop => " + stack.pop());
-// Util.print("pop => " + stack.pop());
-// Util.print("pop => " + stack.pop());
-// stack.print();
-var queue = new _Queue.default();
-queue.enQueue(1);
-queue.enQueue(2);
-queue.enQueue(3);
-queue.enQueue(4);
-queue.print();
-Util.print("peek() => " + queue.peek());
-Util.print("size = " + queue.size());
-Util.print("deQueue() => " + queue.deQueue());
-Util.print("deQueue() => " + queue.deQueue());
-queue.print();
-Util.print("enQueue(5)");
-queue.enQueue(5);
-queue.print();
-Util.print("enQueue(6)");
-queue.enQueue(6);
-queue.print();
-},{"./util/Util":"src/util/Util.js","./ds/stack/implwithlinkedlist/Stack":"src/ds/stack/implwithlinkedlist/Stack.js","./ds/queue/implwithsinglelinkedlist/Queue":"src/ds/queue/implwithsinglelinkedlist/Queue.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var array = [4, 55, 67, 1, -6, 789];
+var sort = new _SelectionSort.default(array);
+sort.sort();
+},{"./util/Util":"src/util/Util.js","./algorithms/sort/BogoSort":"src/algorithms/sort/BogoSort.js","./algorithms/sort/BubbleSort":"src/algorithms/sort/BubbleSort.js","./algorithms/sort/SelectionSort":"src/algorithms/sort/SelectionSort.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -456,7 +378,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62829" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64914" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

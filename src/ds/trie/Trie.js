@@ -111,6 +111,37 @@ export default class Trie {
         this.printNodesSorted(node.children[i], word + node.letter);
     }
   }
+
+  autoComplete(key) {
+    const list = [];
+
+    let tempNode = this.root;
+
+    for (let i = 0; i < key.length; i++) {
+      const letter = key.charAt(i);
+      const child = tempNode.getChildByLetter(letter);
+      if (child == null) return list;
+      tempNode = child;
+    }
+
+    this.searchForAutoComplete(tempNode, key, list);
+    return list;
+  }
+
+  searchForAutoComplete(node, key, resultList) {
+    if (node == null) return;
+
+    if (!node.isLastLetter) {
+      node.children.forEach((n) => {
+        this.searchForAutoComplete(n, key + n.letter, resultList);
+      });
+    } else {
+      resultList.push(key);
+      node.children.forEach((n) => {
+        this.searchForAutoComplete(n, key + n.letter, resultList);
+      });
+    }
+  }
 }
 
 class Node {

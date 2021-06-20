@@ -1,0 +1,45 @@
+1. Bogo ve ya Permutation Sort
+
+Bu alqorithm en asan başa düşülən və ən sadə yolla implementasiya oluna bilən sorting algorithm i hesab eləmək olar.
+Bogo sort algorithm i verilmiş arrayin müxtəlif düzülüşlərini (permutasiyalarını) hazırlayır və həmin yeni düzülüşün
+sorted olub olmadıqını yoxlayır. Egər deyil isə yenidən arrayin yeni düzülüşünü hazırlayır və bu əməliyyatı ta ki istədiyi düzülüşdəki
+array əlinə keşənə dək davam edir.
+
+Başa düşüldüyü kimi bu alqortihm tamami ilə təsadüfə söykənir və buna görə də Time complexity klasik komputerlərdə çox
+böyük bir rəqəmdir. Təxmini (N!) hesab eləmək olar. Çünki nəticədə hər N sayda elementin N! sayda maksimum düzülüşü ola bilər.
+
+Bu alqorithm həddindən çox ləng işlədiyinə görə klasik komputerlərdə ondan istifadə olunmur amma kuantum komputerlərdə bu alqorithm istifadə olunduqda 
+O(1) zamana əlimizdəki array i sort edə bilirik. Bu alqorithm kuantum komputerlerdə çox istifadə olunur.
+
+Time complexity: O(N!)
+IN-PLACE +
+STABIL -
+ADAPTIVE -
+
+
+2. Bubble Sort
+
+Burada verilmiş array in 0 ci elementindən başlayaraq sonuna qədər elementlərini cüt-cüt ələ alırıq və onları 
+müqayisə edirik. Əgər gördüksə ki, sol element sağdakından böyükdür onda onların yerini dəyişdiririk. Məsə burasındadır ki,
+bunu arrayin içincəki elementlerəin sayı qədər etməliyik və bizə tez-tez yerdəyimşə (swap) əməliyyatı etmək lazım ola bilər.
+
+Bu alqorithm de olduqca asan başa düçülə bilinən və implementasiyası da rahatdır. Bununla yanaşı olaraq bu da öz növbəsində 
+ləng alqorithmlərdən sayılır.
+
+Time complexity: O(N*N) - quadatic
+IN-PLACE +
+STABIL +
+ADAPTIVE +
+
+3. Selection Sort
+
+Bu alqorithm başdan başlıyaraq sona qədər gedir və ən böyük elementi tapıb arrayın ən sonuna yerləşdirir.
+Və daha sonra bu əməliyyatı yenidən təkrarlayır və arrayın sondan ikinci slotuna yerləşdirir. Bu əməliyyat elementlərin
+sayı qədər təkrarlandıqdan sonra ortaya sorted array çıxır. Bu da ləng alqorithm sayılmasına baxmayaraq
+Bubble sortdan daha yaxşı hesab olunur çünki daha az yerdəyişmə əməliyyatı lazımdır işləməsi üçün.
+
+
+Time complexity: O(N*N) - quadatic
+IN-PLACE +
+STABIL -
+ADAPTIVE -
